@@ -1,0 +1,34 @@
+<script>元素属性：
+async：立即下载脚本，只对外部脚本文件有效，不妨碍其他操作，标记async的脚本不保证按照制定的先后顺序执行
+charset： src属性指定的代码的字符集
+defer： 表示脚本延迟到文档解析和显示后执行，即html和css加载后执行，只对外部脚本有效，此属性相当于告诉浏览器立即下载但是延迟执行（最好只有一个延迟脚本）
+src： 引入外部文件，参数为文件路径
+type：脚本的内容类型
+
+现在web通常把js引用放在<body>中页面内容之后，减少延迟
+引入js文件如下：
+<script type="application/javascript" src="js/jquery-2.1.4.js"></script>
+
+使用外部文件调用js代码的好处：
+            1、可维护性，统一管理js代码
+            2、可缓存，不同页面使用同一套js，可以只下载一次js文件，加快页面加载速度
+            3、适应未来
+
+
+变量：var定义变量，未初始化变量保存特殊值undefined。
+
+数据类型：
+typeof 返回字符串对应类型
+    undefined ————》Undefined
+    boolean ————》Boolean
+    number ————》Number
+    string ————》String
+    object ————》Object或者Null
+    function————》函数
+
+    1、Undefined
+    2、Null
+    3、Boolean
+    4、Number
+    5、String
+    6、Object
