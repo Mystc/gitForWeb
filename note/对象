@@ -1,0 +1,106 @@
+************************************创建对象的方式************************************
+1、工厂模式
+工厂模式是软件工程领域一种广为人知的设计模式，这种模式抽象了创建具体对象的过程。考虑到ECMAScript中无法创建类，开发人员发明了一种函数，用函数来封装特定接口创建对象的细节：
+function createPerson(name,age,job){
+    var o = new Object();
+    o.name = name;
+    o.age = age;
+    o.job = job;
+    o.sayName = function(){
+        alert(this.name);
+    }
+    return o;
+}
+var person1 = createPerson("Nicholas", 29, "Software Engineer");
+var person2 = createPerson("Greg", 27, "Doctor");
+工厂模式解决了创建多个相似对象的问题，但是没解决对象识别的问题（即怎样知道一个对象的类型）。
+
+2、构造函数模式
+function Person(name, age, job){
+this.name = name;
+this.age = age;
+this.job = job;
+this.sayName = function(){
+alert(this.name);
+};
+}
+var person1 = new Person("Nicholas", 29, "Software Engineer");
+var person2 = new Person("Greg", 27, "Doctor");
+与工厂模式不同之处：
+没有显式的创建对象
+直接将属性和方法赋给了this对象
+没有return语句
+构造函数第一个字母大写
+实例化经过四步：
+创建一个新对象
+将构造函数作用域赋给新对象（因此this指向了新对象）
+执行构造函数代码（为新对象添加属性）
+返回新对象
+， person1 和 person2 分别保存着 Person 的一个不同的实例。这两个对象都
+有一个 constructor （构造函数）属性，该属性指向 Person ，如下所示。
+alert(person1.constructor == Person); //true
+alert(person2.constructor == Person); //true
+
+构造函数和函数唯一区别是他们调用方式不同，任何函数只要通过new操作符来调用就可以作为构造函数
+
+构造函数的缺点：用构造函数每个实例都要重新创建一遍
+
+************************************创建对象的方式************************************
+属性类型：
+数据属性：
+数据属性包含一个数据值的位置。在这个位置可以读取和写入值，数据属性有4个描述其行为的特性。
+Configurable：表示能否通过delete删除属性从而重新定义属性，能否修改属性的特性，或者能否把属性修改为访问器属性。默认值是true。
+Enumerable：表示能否通过for-in循环返回属性，默认是true
+Writable：表示能否修改属性的值，默认true。
+Value：包含这个属性的数据值，读取属性值的时候，从这个位置读；写入属性值的时候，把新值保存在这个位置，这个特性的默认值是undefined
+var person ={
+name :"Nicholas"
+}；
+创建name属性，指定的值是Nicholas，即Value特性将被设置为Nicholas，而对这个值的修改都反映在这个位置。
+修改属性默认的特性，必须使用Object.defineProperty()方法，这个方法三个参数：属性所在的对象、属性的名字、和一个描述符对象。其中，描述符对象的属性必须是configurable，enumerable，writable，value，设置其中一个或多个值，可以修改对应的特性值。
+如 var person = {};
+Object.defineProperty(person,"name",{
+writable:"false",//不可修改
+configurable:"false",//不可删除
+value:"Nicholas"
+})
+alert(person.name)  //Nicholas
+person.name = "ggg";
+alert(person.name)  //Nicholas
+delete person.name
+alert(person.name)  //Nicholas
+一旦把属性configurable定义为不可配置，那么就不可以改为可配置了*****
+
+
+
+
+
+访问器属性：
+访问器属性不包含数据值，包含一对getter和setter函数（都是非必需）
+读取访问器属性时调用getter，函数返回有效的值，写入访问器属性时，调用setter函数并传入新值，
+访问器四个属性：
+Configurable：表示能否通过delete属性删除属性从而重新定义属性，默认true
+Enumerable：表示能否通过for-in循环返回属性，默认是true
+Get：读取属性时调用的函数，默认undefined
+Set：写入属性时调用的函数，默认undefined
+Object.defineProperty()，访问器属性用其定义
+var book = {
+_year: 2004,
+edition: 1
+};
+Object.defineProperty(book, "year", {
+get: function(){
+return this._year;
+},
+set: function(newValue){
+if (newValue > 2004) {
+this._year = newValue;
+this.edition += newValue - 2004;
+}
+}
+});
+book.year = 2005;
+alert(book.edition); //2
+
+ Object.getOwnPropertyDescriptor()，取得给地你个属性的描述符
+ 这个方法有两个参数，1、属性所在的对象 2、要读取其描述符的属性名称
