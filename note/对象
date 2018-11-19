@@ -67,15 +67,108 @@ alert(person2.constructor == Person); //true
     只要创建了一个新函数，就会根据一组特定的规则为该函数创建一个prototype属性，改属性指向函数的原型对象。默认情况下，所有原型对象都会自动获得一个constructor（构造函数）属性，这个属性包含一个指向prototype属性所在函数的指针。即Person.prototype.constructor指向Person。通过这个构造函数可以继续为远行对象添加其他属性和方法。
 
 
+    *********************原型对象****************************
+   4、组合使用构造函数和原型模式
+   构造函数模式定义实例属性，原型模式定义方法和共享的属性。这样每个实例都有自己的一份实例属性的副本，但是同时共享对方法的引用，最大限度地节省了内存。
+function Person(name, age, job){
+this.name = name;
+this.age = age;
+this.job = job;
+this.friends = ["Shelby", "Court"];
+}
+Person.prototype = {
+constructor : Person,
+sayName : function(){
+alert(this.name);
+}
+}
+var person1 = new Person("Nicholas", 29, "Software Engineer");
+var person2 = new Person("Greg", 27, "Doctor");
+person1.friends.push("Van");
+alert(person1.friends); //"Shelby,Count,Van"
+alert(person2.friends); //"Shelby,Count"
+alert(person1.friends === person2.friends); //false
+alert(person1.sayName === person2.sayName); //true
 
+5、动态原型模式：
+function Person(name, age, job){
+//属性
+this.name = name;
+this.age = age;
+this.job = job;
+// 方法
+if (typeof this.sayName != "function"){
+Person.prototype.sayName = function(){
+alert(this.name);
+};
+}
+}
+var friend = new Person("Nicholas", 29, "Software Engineer");
+friend.sayName();
 
+6、寄生构造函数模式
+function Person(name, age, job){
+var o = new Object();
+o.name = name;
+o.age = age;
+o.job = job;
+o.sayName = function(){
+alert(this.name);
+};
+return o;
+}
+var friend = new Person("Nicholas", 29, "Software Engineer");
+friend.sayName(); //"Nicholas"
+这个模式可以在特殊的情况下用来为对象创建构造函数。假设我们想创建一个具有额外方法的特殊
+数组。由于不能直接修改 Array 构造函数，因此可以使用这个模式。
+function SpecialArray(){
+//创建数组
+var values = new Array();
+//添加值
+values.push.apply(values, arguments);
+//添加方法
+values.toPipedString = function(){
+return this.join("|");
+};
+//返回数组
+return values;
+}
+var colors = new SpecialArray("red", "blue", "green");
+alert(colors.toPipedString()); //"red|blue|green"
+HybridFactoryPatternExample02.htm
+在这个例子中，我们创建了一个名叫 SpecialArray 的构造函数。在这个函数内部，首先创建了
+一个数组，然后 push() 方法（用构造函数接收到的所有参数）初始化了数组的值。随后，又给数组实
+例添加了一个 toPipedString() 方法，该方法返回以竖线分割的数组值。最后，将数组以函数值的形
+式返回。接着，我们调用了 SpecialArray 构造函数，向其中传入了用于初始化数组的值，此后又调
+用了 toPipedString() 方法。
+关于寄生构造函数模式，有一点需要说明：首先，返回的对象与构造函数或者与构造函数的原型属
+性之间没有关系；也就是说，构造函数返回的对象与在构造函数外部创建的对象没有什么不同。为此，
+不能依赖 instanceof 操作符来确定对象类型。由于存在上述问题，我们建议在可以使用其他模式的情
+况下，不要使用这种模式。
 
-
-
-
-
-
-*********************原型对象****************************
+7、稳妥构造函数模式
+    所谓稳妥对象，指的是没有公共属性，而且其方法也不引用this的对象，适合一些安全环境（禁止使用this和new），或者在防止数据被其他应用程序改动时使用。
+妥构造函数遵循与寄生构造函数类似的模式，但有两点不同：一是新创建对象的
+实例方法不引用 this ；二是不使用 new 操作符调用构造函数。按照稳妥构造函数的要求，可以将前面
+的 Person 构造函数重写如下。
+function Person(name, age, job){
+//创建要返回的对象
+var o = new Object();
+//可以在这里定义私有变量和函数
+//添加方法
+o.sayName = function(){
+alert(name);
+};
+//返回对象
+return o;
+}
+注意，在以这种模式创建的对象中，除了使用 sayName() 方法之外，没有其他办法访问 name 的值。
+可以像下面使用稳妥的 Person 构造函数。
+var friend = Person("Nicholas", 29, "Software Engineer");
+friend.sayName(); //"Nicholas"
+这样，变量 friend 中保存的是一个稳妥对象，而除了调用 sayName() 方法外，没有别的方式可
+以访问其数据成员。即使有其他代码会给这个对象添加方法或数据成员，但也不可能有别的办法访问传
+入到构造函数中的原始数据。
 ************************************创建对象的方式************************************
 属性类型：
 数据属性：
