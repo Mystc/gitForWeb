@@ -1,0 +1,14 @@
+body{
+    margin: 0px;
+    padding: 0px;
+    font-size: 24px;
+    font-family: 微软雅黑;
+}
+*{
+    margin: 0px;
+    padding: 0px;
+    text-align: center;
+}
+li{
+    list-style-type: none;
+}
