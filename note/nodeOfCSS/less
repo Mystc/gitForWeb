@@ -1,0 +1,103 @@
+less中的变量的声明方法：
+@变量名:值;
+@test_width:20px;
+
+
+/*************混合******************/
+混合:
+.box{
+    width:@test_width;
+    height:@test_width;
+    .border;
+}
+.border{
+border:solid 5px red;
+}
+此时class为box的元素中含有border中的属性
+
+//混合可带参数
+.box{
+    width:@test_width;
+    height:@test_width;
+    .border(5px);
+}
+.border(@border_width){
+border:solid @border_width red;
+}
+//混合可带参数，默认带值
+.border2(@border_width:10px){
+border:solid @border_width red;
+}
+
+混合模式可用于写兼容性代码
+
+/*************混合**********************/
+
+/*************匹配模式**********************/
+通过css画三角形
+.sanjiao{
+    width:0;
+    height:0;
+    overflow:hidden;//兼容IE6
+    border-width:10px;
+    border-color:red transparent transparent transparent;
+    border-style:solid dashed dashed dashed;//兼容IE6
+}
+
+.triangle(bottom,@w:5px,@c:red){
+    border-width:@w;
+    border-color:transparent transparent red transparent;
+    border-style:dashed dashed dashed solid;//兼容IE6
+}
+.triangle(top,@w:5px,@c:red){
+    border-width:@w;
+    border-color:red transparent transparent transparent;
+    border-style:solid dashed dashed dashed dashed;//兼容IE6
+}
+
+.triangle(@_,@w:5px,@c:red){
+   width:0;
+   height:0;
+   overflow:hidden;
+}
+
+.sanjiao{
+    .triangle(right,100px);
+}
+
+
+/*************匹配**********************/
+
+
+/************嵌套*********************/
+
+.list{
+
+    li{
+
+
+    }
+
+
+    //伪类 &代表其上一次选择器
+    &:hover{
+
+    }
+}
+
+
+
+
+/*************嵌套**********************/
+/*************避免编译**********************/
+
+.test_03{
+width:~'calc(300px-30px)';
+}
+
+
+//important 增加样式优先级
+ .test_important{
+    .border_03();!important;
+ }
+/*************避免编译**********************/
