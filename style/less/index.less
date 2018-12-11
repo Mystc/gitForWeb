@@ -1,3 +1,43 @@
-body{
-  background: white;
+@import "base";
+
+@publicWidth: 100%;
+header {
+  @headerHeight: 117px;
+  @pubPadding:300px;
+  width: @publicWidth;
+  height: @headerHeight;
+
+  .header_top {
+    width: @publicWidth - 2 * @pubPadding;
+    height: 32px;
+    background: rgb(247, 247, 247);
+    .pl(@pubPadding);
+    .pr(@pubPadding);
+    .star-five {
+      width: 0;
+      height: 0;
+      color: red;
+      margin: 50px 0;
+      position: relative;
+      display: block;
+      border-left: 100px solid transparent;
+      border-right: 100px solid transparent;
+      border-bottom: 70px solid red;
+      -moz-transfrom:rotate(35deg);
+      -webkit-transform:rotate(35deg);
+      -ms-transform:rotate(35deg);
+      -o-transform:rotate(35deg);
+    }
+    p {
+      width: 20px;
+      height: 20px;
+      background: blue;
+      .fl;
+    }
+  }
+  .header_bottom {
+    width: @publicWidth;
+    height: @headerHeight - 32;
+    background: rgb(29, 122, 217);
+  }
 }

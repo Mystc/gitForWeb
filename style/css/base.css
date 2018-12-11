@@ -1,4 +1,23 @@
-body ul ol li {
+.fl {
+  float: left;
+}
+.fr {
+  float: right;
+}
+.fixed {
+  position: fixed;
+}
+.relative {
+  position: relative;
+}
+.absolute {
+  position: absolute;
+}
+body,
+ul,
+ol,
+li,
+p {
   margin: 0px;
   padding: 0px;
 }

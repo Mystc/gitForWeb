@@ -3,7 +3,43 @@
   padding: 0px;
 }
 
-body ul ol li {
+.pl(@left:0px) {
+  padding-left: @left;
+}
+
+.pr(@right:0px) {
+  padding-right: @right;
+}
+
+.pt(@top:0px) {
+  padding-top: @top;
+}
+
+.pb(@bottom:0px) {
+  padding-bottom: @bottom;
+}
+
+.fl {
+  float: left;
+}
+
+.fr {
+  float: right;
+}
+
+.fixed {
+  position: fixed;
+}
+
+.relative {
+  position: relative;
+}
+
+.absolute {
+  position: absolute;
+}
+
+body, ul, ol, li,p {
   .base();
 }
 
