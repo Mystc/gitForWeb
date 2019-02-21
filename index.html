@@ -17,5 +17,34 @@
 </header>
 <main></main>
 <footer></footer>
+<script>
+
+    /**
+     * @param {number[]} nums
+     * @param {number} target
+     * @return {number[]}
+     */
+    var nums = [2, 7, 11, 15];
+    var twoSum = function (nums, target) {
+        var arr = new Array();
+        if (Array.isArray(nums)) {
+            for (var i = 0; i < nums.length; i++) {
+                var filterResult = nums.filter(function (item, index, array) {
+                    alert((item == (target - nums[i])) + "------------" + item + "-----------" + nums[i] + "000000000000" + (target - nums[i]));
+                    var myitem = target - nums[i];
+                    return (item == myitem);
+
+
+                });
+            }
+            alert(filterResult);
+            arr.push(nums.indexOf(filterResult));
+            arr.push(i);
+            return arr;
+        }
+    }
+    var arr2 = twoSum(nums, 9);
+    alert(arr2);
+</script>
 </body>
 </html>
