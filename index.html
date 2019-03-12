@@ -5,48 +5,33 @@
     <title>Vue 实例生命周期函数</title>
     <script src="js/vue.js" type="application/javascript">
     </script>
+    <style type="text/css" rel="stylesheet">
+        .activated {
+            color: red;
+        }
+    </style>
 </head>
 <body>
-<div id="app">
-    {{fullName}}
-    {{age}}
+<div id="root">
+    <div ref="hello"
+         @click="hand">
+        click
+    </div>
 </div>
 <script>
-  //  Object.freeze(data);
-    //生命周期函数就是vue实例在某一个时间点会自动执行的函数
-    const app = new Vue({
-        el:'#app',
-        data:{
-            firstName :'Dale',
-            lastName :'Sun',
-            fullName: 'Dale Lee',
-            age: 28
-        },
-        watch:{
-            firstName: function () {
-                console.log('计算了一次');
-                this.fullName = this.firstName+" "+this.lastName;
-            } ,
-            lastName: function () {
-                console.log('计算了er次');
-                this.fullName = this.firstName+" "+this.lastName;
+    Vue.component('row',{
+       template:'<tr><td>this is a row</td></tr>'
+    });
+    var vm = new Vue({
+        el: '#root',
+        data: {},
+        methods:{
+            hand:function () {
+                console.log(this.$refs.hello.innerHTML);
             }
         }
-        //计算属性,内置缓存
-        // computed:{
-        //     fullName:function () {
-        //         console.log('计算了一次');
-        //         return this.firstName+" "+this.lastName;
-        //     }
-        // }
-        // methods:{
-        //         fullName:function () {
-        //             console.log('计算了一次');
-        //             return this.firstName+" "+this.lastName;
-        //         }
-        // }
-
     })
+
 </script>
 </body>
 </html>
