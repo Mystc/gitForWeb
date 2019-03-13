@@ -13,21 +13,27 @@
 </head>
 <body>
 <div id="root">
-    <div ref="hello"
-         @click="hand">
-        click
-    </div>
+    <child :content="dw" @click.native="cli"></child>
 </div>
 <script>
-    Vue.component('row',{
-       template:'<tr><td>this is a row</td></tr>'
+    Vue.component('child', {
+        props:{
+            content:{
+
+            }
+        },
+        template: '<div>{{content}}</div>',
+
+
     });
     var vm = new Vue({
         el: '#root',
-        data: {},
+        data: {
+            dw:'dwasda'
+        },
         methods:{
-            hand:function () {
-                console.log(this.$refs.hello.innerHTML);
+            cli:function () {
+                alert('click')
             }
         }
     })
