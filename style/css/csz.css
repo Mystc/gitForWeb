@@ -1,0 +1,34 @@
+.fl {
+  float: left;
+}
+.fr {
+  float: right;
+}
+.fixed {
+  position: fixed;
+}
+.relative {
+  position: relative;
+}
+.absolute {
+  position: absolute;
+}
+body,
+ul,
+ol,
+li,
+p {
+  margin: 0px;
+  padding: 0px;
+}
+#sz {
+  width: 100px;
+  height: 20px;
+}
+#qr {
+  display: inline-block;
+  width: 80px;
+  height: 20px;
+  background: red;
+  border-radius: 5px;
+}

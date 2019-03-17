@@ -1,0 +1,60 @@
+.fl {
+  float: left;
+}
+.fr {
+  float: right;
+}
+.fixed {
+  position: fixed;
+}
+.relative {
+  position: relative;
+}
+.absolute {
+  position: absolute;
+}
+body,
+ul,
+ol,
+li,
+p {
+  margin: 0px;
+  padding: 0px;
+}
+header {
+  width: 100%;
+  height: 117px;
+}
+header .header_top {
+  width: -500%;
+  height: 32px;
+  background: #f7f7f7;
+  padding-left: 300px;
+  padding-right: 300px;
+}
+header .header_top .star-five {
+  width: 0;
+  height: 0;
+  color: red;
+  margin: 50px 0;
+  position: relative;
+  display: block;
+  border-left: 100px solid transparent;
+  border-right: 100px solid transparent;
+  border-bottom: 70px solid red;
+  -moz-transfrom: rotate(35deg);
+  -webkit-transform: rotate(35deg);
+  -ms-transform: rotate(35deg);
+  -o-transform: rotate(35deg);
+}
+header .header_top p {
+  width: 20px;
+  height: 20px;
+  background: blue;
+  float: left;
+}
+header .header_bottom {
+  width: 100%;
+  height: 85px;
+  background: #1d7ad9;
+}
