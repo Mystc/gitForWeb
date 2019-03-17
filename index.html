@@ -1,43 +1,51 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang = "en">
 <head>
-    <meta charset="UTF-8">
-    <title>Vue 实例生命周期函数</title>
-    <script src="js/vue.js" type="application/javascript">
-    </script>
-    <style type="text/css" rel="stylesheet">
-        .activated {
-            color: red;
-        }
-    </style>
+	<meta charset = "UTF-8">
+	<title>Vue 实例生命周期函数</title>
+	<script src = "js/vue.js" type = "application/javascript">
+	</script>
+	<style>
+		.fade-enter {
+			opacity: 0;
+		}
+		
+		.fade-enter-active {
+			transition:opacity 5s;
+		}
+		.fade-leave-to {
+			opacity: 0;
+		}
+		
+		.fade-leave-active {
+			transition:opacity 3s;
+		}
+	</style>
 </head>
 <body>
-<div id="root">
-    <child :content="dw" @click.native="cli"></child>
+<div id = "root">
+	<transition name = "fade">
+		<div v-if = "show">hello world</div>
+	</transition>
+	<button @click = "handleClick">
+		切换
+	</button>
 </div>
+
 <script>
-    Vue.component('child', {
-        props:{
-            content:{
+	var vm = new Vue({
+		el: '#root',
+		data: {
+			show: true
+		},
+		methods: {
+			handleClick: function () {
+				this.show = !this.show;
+			},
+			
+		}
 
-            }
-        },
-        template: '<div>{{content}}</div>',
-
-
-    });
-    var vm = new Vue({
-        el: '#root',
-        data: {
-            dw:'dwasda'
-        },
-        methods:{
-            cli:function () {
-                alert('click')
-            }
-        }
-    })
-
+	});
 </script>
 </body>
 </html>
